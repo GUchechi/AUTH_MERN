@@ -12,7 +12,9 @@ import LoadingSpinner from "./components/LoadingSoinner";
 
 // protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, user } = useAuthStore();
+  const { isAuthenticated, user, isCheckingAuth } = useAuthStore();
+
+  if (isCheckingAuth) return <LoadingSpinner />;
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
@@ -27,7 +29,9 @@ const ProtectedRoute = ({ children }) => {
 
 // redirect authenticated users to the home page
 const RedirectAuthenticatedUser = ({ children }) => {
-  const { isAuthenticated, user } = useAuthStore();
+  const { isAuthenticated, user, isCheckingAuth } = useAuthStore();
+
+  if (isCheckingAuth) return <LoadingSpinner />;
 
   if (isAuthenticated && user.isVerified) {
     return <Navigate to="/" replace />;
