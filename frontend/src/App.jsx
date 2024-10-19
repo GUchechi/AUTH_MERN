@@ -9,6 +9,7 @@ import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
 import DashboardPage from "./pages/DashboardPage";
 import LoadingSpinner from "./components/LoadingSoinner";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage ";
 
 // protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -102,6 +103,15 @@ const App = () => {
           }
         />
         <Route path="/verifyEmail" element={<EmailVerificationPage />} />
+
+        <Route
+          path="/forgotPassword"
+          element={
+            <RedirectAuthenticatedUser>
+              <ForgotPasswordPage />
+            </RedirectAuthenticatedUser>
+          }
+        />
       </Routes>
       <Toaster />
     </div>
